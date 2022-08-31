@@ -7,11 +7,10 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
       
-    working_directory: ~/hello
+    working_directory: ~/repo
     
     steps:
       - checkout
-    
       - restore_cache:
           keys: 
             - v1-dependencies-{{ checksum "requirements.txt" }}
@@ -24,10 +23,9 @@ jobs:
             make install
             
       - save_cache:
-            path: 
-              - ./venv
-            key:
-              - v1-dependencies-{{ checksum "requirements.txt" }}
+          path: 
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run: 
           name: run lint
           command: |
